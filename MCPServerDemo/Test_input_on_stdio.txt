@@ -1,0 +1,172 @@
+﻿-----------------------------------Console Test 1: List Tools-------------------------------------------------------
+
+This input can be used for testing Get tools call
+{"jsonrpc":"2.0","id":"1","method":"tools/list"}
+
+Single line format:
+{"jsonrpc":"2.0","id":"1","method":"tools/list"}
+
+Expected Output:
+{
+  "jsonrpc": "2.0",
+  "id": "1",
+  "result": {
+    "tools": [
+      {
+        "name": "get_time",
+        "description": "Returns current server time",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "Format": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "calculate_sum",
+        "description": "Adds two numbers",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "A": {
+              "type": "integer",
+              "default": 0
+            },
+            "B": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          "required": [
+            "A",
+            "B"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "error": null
+}
+-----------------------------------Console Test 1-------------------------------------------------------
+
+
+-----------------------------------Console Test 2: Calculate Sum-------------------------------------------------------
+
+This input can be used for testing Calculate Sum Tool
+{"jsonrpc": "2.0","id": "2","method": "tools/call","params": {"name": "calculate_sum","arguments": { "a": 5, "b": 7 }}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"2","method":"tools/call","params":{"name":"calculate_sum","arguments":{"a":5,"b":7}}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"2","result":{"value":12},"error":null}
+-----------------------------------Console Test 2-------------------------------------------------------
+
+
+-----------------------------------Console Test 3: Get Time-------------------------------------------------------
+
+This input can be used for testing Get Time Tool
+{"jsonrpc": "2.0","id": "3","method": "tools/call","params": {"name": "get_time","arguments": {}}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"3","method":"tools/call","params":{"name":"get_time","arguments":{}}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"3","result":{"value":"2026-02-20T..."},"error":null}
+-----------------------------------Console Test 3-------------------------------------------------------
+
+
+-----------------------------------Console Test 4: Invalid Method-------------------------------------------------------
+
+This input can be used for testing invalid method handling
+{"jsonrpc": "2.0","id": "4","method": "invalid/method","params": {}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"4","method":"invalid/method","params":{}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"4","error":{"code":-32601,"message":"Method not found"},"result":null}
+-----------------------------------Console Test 4-------------------------------------------------------
+
+
+-----------------------------------Console Test 5: Missing Tool Name-------------------------------------------------------
+
+This input can be used for testing tools/call without tool name
+{"jsonrpc": "2.0","id": "5","method": "tools/call","params": {"arguments": { "a": 1, "b": 2 }}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"5","method":"tools/call","params":{"arguments":{"a":1,"b":2}}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"5","error":{"code":-32602,"message":"Invalid params: missing tool name"},"result":null}
+-----------------------------------Console Test 5-------------------------------------------------------
+
+
+-----------------------------------Console Test 6: Non-existent Tool-------------------------------------------------------
+
+This input can be used for testing calling a tool that doesn't exist
+{"jsonrpc": "2.0","id": "6","method": "tools/call","params": {"name": "non_existent_tool","arguments": {}}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"6","method":"tools/call","params":{"name":"non_existent_tool","arguments":{}}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"6","error":{"code":-32602,"message":"Tool not found: non_existent_tool"},"result":null}
+-----------------------------------Console Test 6-------------------------------------------------------
+
+
+-----------------------------------Console Test 7: Calculate Sum with Large Numbers-------------------------------------------------------
+
+This input can be used for testing Calculate Sum with larger values
+{"jsonrpc": "2.0","id": "7","method": "tools/call","params": {"name": "calculate_sum","arguments": { "a": 999999, "b": 1 }}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"7","method":"tools/call","params":{"name":"calculate_sum","arguments":{"a":999999,"b":1}}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"7","result":{"value":1000000},"error":null}
+-----------------------------------Console Test 7-------------------------------------------------------
+
+
+-----------------------------------Console Test 8: Invalid JSON-------------------------------------------------------
+
+This input can be used for testing malformed JSON handling
+{"jsonrpc":"2.0","id":"8","method":"tools/list"
+
+Single line format:
+{"jsonrpc":"2.0","id":"8","method":"tools/list"
+
+Expected Output:
+Parse error or connection closure
+-----------------------------------Console Test 8-------------------------------------------------------
+
+
+-----------------------------------Console Test 9: Missing Required Arguments-------------------------------------------------------
+
+This input can be used for testing calculate_sum without required arguments
+{"jsonrpc": "2.0","id": "9","method": "tools/call","params": {"name": "calculate_sum","arguments": { "a": 5 }}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"9","method":"tools/call","params":{"name":"calculate_sum","arguments":{"a":5}}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"9","error":{"code":-32602,"message":"Invalid params: missing argument 'b'"},"result":null}
+-----------------------------------Console Test 9-------------------------------------------------------
+
+
+-----------------------------------Console Test 10: Negative Numbers-------------------------------------------------------
+
+This input can be used for testing Calculate Sum with negative numbers
+{"jsonrpc": "2.0","id": "10","method": "tools/call","params": {"name": "calculate_sum","arguments": { "a": -10, "b": 5 }}}
+
+Single line format:
+{"jsonrpc":"2.0","id":"10","method":"tools/call","params":{"name":"calculate_sum","arguments":{"a":-10,"b":5}}}
+
+Expected Output:
+{"jsonrpc":"2.0","id":"10","result":{"value":-5},"error":null}
+-----------------------------------Console Test 10-------------------------------------------------------
