@@ -135,6 +135,7 @@ That's it! Your tool is now discoverable and executable.
 
 ### MCP Server Flow
 sequenceDiagram participant Client as AI Assistant participant MCP as MCP Server participant Router as Request Router participant Registry as Tool Registry participant Tool as Tool Instance
+
 Client->>MCP: JSON-RPC Request (stdin)
 MCP->>Router: Parse & Route
 
