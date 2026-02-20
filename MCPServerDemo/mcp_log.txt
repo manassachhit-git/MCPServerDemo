@@ -1,0 +1,6 @@
+INPUT: {"jsonrpc":"2.0","id":"1","method":"tools/list"}
+INPUT: {"jsonrpc":"2.0","id":"1","method":"tools/list"}
+INPUT: {"jsonrpc":"2.0","id":"3","method":"tools/call","params":{"name":"get_time","arguments":{}}}
+INPUT: {"jsonrpc":"2.0","id":"3","method":"tools/call","params":{"name":"get_time","arguments":{}}}
+INPUT: {"jsonrpc":"2.0","id":"2","method":"tools/call","params":{"name":"calculate_sum","arguments":{"A":7,"B":9}}}
+INPUT: {"jsonrpc":"2.0","id":"2","method":"tools/call","params":{"name":"calculate_sum","arguments":{"a":7,"b":9}}}

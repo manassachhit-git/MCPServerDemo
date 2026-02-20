@@ -14,6 +14,16 @@ public class McpServer
 {
     private readonly RequestRouter _router;
 
+    private readonly JsonSerializerOptions _deserializeOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+    private readonly JsonSerializerOptions _serializeOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
+
     public McpServer(RequestRouter router)
     {
         _router = router;
@@ -24,30 +34,37 @@ public class McpServer
         while (true)
         {
             var input = Console.ReadLine();
+
+            if (input == null)
+                break;
+
             if (string.IsNullOrWhiteSpace(input))
                 continue;
 
             try
             {
-                // Deserialize the incoming JSON-RPC request
-                
-                var request = JsonSerializer.Deserialize<JsonRpcRequest>(input);
+                File.AppendAllText("mcp_log.txt", "INPUT: " + input + "\n");
 
-                if (request == null) continue;
+                var request = JsonSerializer.Deserialize<JsonRpcRequest>(input, _deserializeOptions);
 
-                // Handle the request using the router and get the response
+                if (request == null)
+                    continue;
+
                 var response = _router.Handle(request);
 
-                var json = JsonSerializer.Serialize(response);
+                var json = JsonSerializer.Serialize(response, _serializeOptions);
+
                 Console.WriteLine(json);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(JsonSerializer.Serialize(new
+                var error = JsonSerializer.Serialize(new
                 {
                     jsonrpc = "2.0",
                     error = ex.Message
-                }));
+                }, _serializeOptions);
+
+                Console.WriteLine(error);
             }
         }
     }

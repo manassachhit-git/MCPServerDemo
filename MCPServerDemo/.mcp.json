@@ -1,0 +1,13 @@
+{
+  "inputs": [],
+  "servers": {
+    "local-mcp-server": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": [
+        "C:\\Users\\mbasawatia\\Documents\\Personal_Projects\\MCPServerDemo\\MCPServerDemo\\bin\\Debug\\net10.0\\MCPServerDemo.dll"
+      ],
+      "env": {}
+    }
+  }
+}

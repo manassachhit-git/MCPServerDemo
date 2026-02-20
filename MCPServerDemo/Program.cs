@@ -21,7 +21,6 @@ class Program
         // Create and start the MCP server
         var server = new McpServer(router);
 
-        Console.WriteLine("MCP Server started...");
         server.Start();
     }
 }
